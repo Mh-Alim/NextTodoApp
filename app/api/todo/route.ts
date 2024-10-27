@@ -17,7 +17,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     console.log(title, description);
 
     const userId = (session.user as any).id as string;
-    await prisma.todo.create({
+    const todo = await prisma.todo.create({
       data: {
         title,
         description,
@@ -28,6 +28,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     return NextResponse.json(
       {
+        todoId: todo.id,
         message: "Todo created successfully",
       },
       { status: 201 }
@@ -81,5 +82,3 @@ export async function GET(req: NextRequest, res: NextResponse) {
     );
   }
 }
-
-
